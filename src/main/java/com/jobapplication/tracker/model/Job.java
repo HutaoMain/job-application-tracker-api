@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -18,8 +17,6 @@ public class Job {
     @Id
     private String id;
 
-    private String email;
-
     private String jobName;
 
     private String companyName;
@@ -27,9 +24,6 @@ public class Job {
     private String jobDescription;
 
     private Integer askingSalary;
-
-    @DBRef
-    private Board board;
 
     @CreatedDate
     private LocalDateTime createdAt;

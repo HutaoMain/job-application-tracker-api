@@ -12,4 +12,6 @@ public interface BoardRepository extends MongoRepository<Board, String> {
 
     List<Board> findByEmail(String email);
 
+    Board findByJobListId(String jobId);
+
 }

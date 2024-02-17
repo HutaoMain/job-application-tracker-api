@@ -1,6 +1,7 @@
 package com.jobapplication.tracker.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -24,7 +25,7 @@ public class Board {
     private String boardName;
 
     @DBRef
-    private List<Job> jobList;
+    private List<Job> jobList = new ArrayList<>();
 
     @CreatedDate
     private LocalDateTime createdAt;

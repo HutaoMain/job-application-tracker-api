@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 @RestController
 @RequestMapping("/api/job")
@@ -25,9 +27,9 @@ public class JobController {
     JobService jobService;
 
     @PostMapping("/create/{boardId}")
-    public ResponseEntity<Job> createJob(@RequestBody Job job, @PathVariable String boardId) {
-        Job createdJob = jobService.createJob(job, boardId);
-        return ResponseEntity.ok(createdJob);
+    public ResponseEntity<?> createJob(@RequestBody Job job, @PathVariable String boardId) {
+        jobService.createJob(job, boardId);
+        return ResponseEntity.ok("Job created");
     }
 
     @GetMapping("/{id}")
@@ -40,6 +42,12 @@ public class JobController {
     public ResponseEntity<List<Job>> getJobList() {
         List<Job> jobList = jobService.getJobList();
         return ResponseEntity.ok(jobList);
+    }
+
+    @PatchMapping("/move-job")
+    public ResponseEntity<Void> moveJobToBoard(@RequestParam String jobId, @RequestParam String targetBoardId) {
+        jobService.moveJobToBoard(jobId, targetBoardId);
+        return ResponseEntity.ok().build();
     }
 
 }
