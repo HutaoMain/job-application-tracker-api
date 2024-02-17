@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping("/api/job")
 @CrossOrigin("*")
 public class JobController {
 
     @Autowired
     JobService jobService;
 
-    @PostMapping("/create")
-    public ResponseEntity<Job> createJob(@RequestBody Job job) {
-        Job createdJob = jobService.createJob(job);
+    @PostMapping("/create/{boardId}")
+    public ResponseEntity<Job> createJob(@RequestBody Job job, @PathVariable String boardId) {
+        Job createdJob = jobService.createJob(job, boardId);
         return ResponseEntity.ok(createdJob);
     }
 

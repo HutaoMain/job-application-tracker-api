@@ -1,6 +1,7 @@
 package com.jobapplication.tracker.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -12,24 +13,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Document(collection = "jobs")
-public class Job {
+@Document(collection = "board")
+public class Board {
 
     @Id
     private String id;
 
     private String email;
 
-    private String jobName;
-
-    private String companyName;
-
-    private String jobDescription;
-
-    private Integer askingSalary;
+    private String boardName;
 
     @DBRef
-    private Board board;
+    private List<Job> jobList;
 
     @CreatedDate
     private LocalDateTime createdAt;
