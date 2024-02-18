@@ -9,5 +9,5 @@ import com.jobapplication.tracker.model.Job;
 
 @Repository
 public interface JobRepository extends MongoRepository<Job, String> {
-    List<Job> findByEmail(String email);
+    List<Job> findByStatusAndEmail(String status, String email);
 }

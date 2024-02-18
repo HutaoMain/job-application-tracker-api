@@ -27,7 +27,7 @@ public class Job {
 
     private Integer askingSalary;
 
-    private String boardId;
+    private String status;
 
     @CreatedDate
     private LocalDateTime createdAt;

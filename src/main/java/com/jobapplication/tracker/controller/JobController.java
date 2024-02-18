@@ -51,9 +51,17 @@ public class JobController {
         return ResponseEntity.ok(jobList);
     }
 
+    @GetMapping("/list/{status}/{email}")
+    public ResponseEntity<List<Job>> getJobListByStatusAndEmail(@PathVariable String status,
+            @PathVariable String email) {
+        List<Job> jobList = jobService.getJobListByStatusAndEmail(status, email);
+        return ResponseEntity.ok(jobList);
+    }
+
+    /* http://baseurl/api/job/move-job?jobId={jobId}&targetStatus={targetStatus} */
     @PatchMapping("/move-job")
-    public ResponseEntity<Void> moveJobToBoard(@RequestParam String jobId, @RequestParam String targetBoardId) {
-        jobService.moveJobToBoard(jobId, targetBoardId);
+    public ResponseEntity<Void> moveJobToBoard(@RequestParam String jobId, @RequestParam String targetStatus) {
+        jobService.moveJobToBoard(jobId, targetStatus);
         return ResponseEntity.ok().build();
     }
 
