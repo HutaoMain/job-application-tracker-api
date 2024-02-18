@@ -17,6 +17,8 @@ public class Job {
     @Id
     private String id;
 
+    private String email;
+
     private String jobName;
 
     private String companyName;
@@ -24,6 +26,8 @@ public class Job {
     private String jobDescription;
 
     private Integer askingSalary;
+
+    private String boardId;
 
     @CreatedDate
     private LocalDateTime createdAt;

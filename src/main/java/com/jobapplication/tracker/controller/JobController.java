@@ -26,10 +26,17 @@ public class JobController {
     @Autowired
     JobService jobService;
 
-    @PostMapping("/create/{boardId}")
-    public ResponseEntity<?> createJob(@RequestBody Job job, @PathVariable String boardId) {
-        jobService.createJob(job, boardId);
-        return ResponseEntity.ok("Job created");
+    // @PostMapping("/create/{boardId}")
+    // public ResponseEntity<?> createJob(@RequestBody Job job, @PathVariable String
+    // boardId) {
+    // jobService.createJob(job, boardId);
+    // return ResponseEntity.ok("Job created");
+    // }
+
+    @PostMapping("/create")
+    public ResponseEntity<Job> createJob(@RequestBody Job job) {
+        Job createdJob = jobService.createJob(job);
+        return ResponseEntity.ok(createdJob);
     }
 
     @GetMapping("/{id}")
