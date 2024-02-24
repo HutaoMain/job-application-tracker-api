@@ -3,6 +3,7 @@ package com.jobapplication.tracker.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,7 +20,8 @@ public class SecurityConfig {
                         .disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/**").permitAll()
-                        .anyRequest().authenticated());
+                        .anyRequest().authenticated())
+                .oauth2Login(Customizer.withDefaults());
         return http.build();
     }
 }

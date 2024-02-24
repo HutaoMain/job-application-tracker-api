@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,18 +19,10 @@ import org.springframework.web.bind.annotation.PatchMapping;
 
 @RestController
 @RequestMapping("/api/job")
-@CrossOrigin("*")
 public class JobController {
 
     @Autowired
     JobService jobService;
-
-    // @PostMapping("/create/{boardId}")
-    // public ResponseEntity<?> createJob(@RequestBody Job job, @PathVariable String
-    // boardId) {
-    // jobService.createJob(job, boardId);
-    // return ResponseEntity.ok("Job created");
-    // }
 
     @PostMapping("/create")
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
