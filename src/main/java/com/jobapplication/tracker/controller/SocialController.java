@@ -2,12 +2,15 @@ package com.jobapplication.tracker.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jobapplication.tracker.model.User;
 import com.jobapplication.tracker.repository.UserRepository;
 import com.jobapplication.tracker.service.UserService;
 
@@ -20,7 +23,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/")
-@CrossOrigin("*")
+
 public class SocialController {
 
     @Autowired
@@ -29,10 +32,13 @@ public class SocialController {
     @Autowired
     UserService userService;
 
-    private final static String redirectUrl = "http://localhost:4200";
+    @Value("${clientUrl}")
+    private String clientUrl;
+
+    /* the endpoint for the oauth2 is /oauth2/authorization/{provider} */
 
     @GetMapping
-    public Map<String, Object> currentUser(OAuth2AuthenticationToken oAuth2AuthenticationToken,
+    public ResponseEntity<Map<String, Object>> currentUser(OAuth2AuthenticationToken oAuth2AuthenticationToken,
             HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         Map<String, Object> attributes = oAuth2AuthenticationToken.getPrincipal().getAttributes();
@@ -50,8 +56,16 @@ public class SocialController {
             log.info("User saved to database with email {}", email);
         }
 
-        response.sendRedirect(redirectUrl);
+        response.sendRedirect(clientUrl + "?email=" + email);
 
-        return attributes;
+        System.out.println("this is attributes" + attributes);
+        return ResponseEntity.ok(attributes);
     }
+
+    @GetMapping("user/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        User user = userService.getUserByEmail(email);
+        return ResponseEntity.ok(user);
+    }
+
 }
